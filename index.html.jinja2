@@ -1,0 +1,19 @@
+<html><body>
+<!-- index.html.jinja2-->
+<marquee><h1>
+{% if text %}
+{{text}}
+{% else %}
+No fun! :C
+{% endif %}
+</h1></marquee>
+
+<br>
+<ul>
+{% for value in li %}
+<li><h3>{{value}}</h3></li>
+{% endfor %}
+</ul>
+</br>
+
+</body></html>
