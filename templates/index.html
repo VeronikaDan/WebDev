@@ -1,0 +1,38 @@
+<html>
+<body>
+<input type="button" class="button" value="Run" />
+<div class="block">
+</div>
+<script src="/static/jquery.js"></script>
+<script>
+$(function () {
+	$('.button').click(function () {
+		$.get('/run_tasks', function(data) {
+			var tasks = data.tasks;
+			for (var i = 0; i < tasks.length; i++) {
+				(function (task_id) {
+					$('.block').append(
+						'<div class="task ' +
+						task_id +
+						'">' +
+						task_id +
+						'</div><br>'
+					);
+					setInterval(function () {
+						console.log(task_id);
+						$.get('/check_task/' + task_id, function (data) {
+							console.log(data);
+							$('.' + task_id).text(
+								task_id + ': ' + data.state +
+								' ' + data.result
+							);
+						});
+					}, 1000);
+				})(tasks[i]);
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>
